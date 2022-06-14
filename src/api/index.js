@@ -3,9 +3,9 @@ import * as atr from './product/atr'
 import * as sku from './product/sku'
 import * as spu from './product/spu'
 
-export default{
-    trademark,
-    atr,
-    sku,
-    spu
+export default {
+  trademark,
+  atr,
+  sku,
+  spu
 }

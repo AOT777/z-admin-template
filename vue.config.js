@@ -37,9 +37,9 @@ module.exports = {
       errors: true
     },
     // before: require('./mock/mock-server.js')
-    proxy:{
-      '/dev-api':{
-        target:'http://gmall-h5-api.atguigu.cn',
+    proxy: {
+      '/dev-api': {
+        target: 'http://gmall-h5-api.atguigu.cn',
         pathRewrite: { '^/dev-api': '' }
       }
     }
