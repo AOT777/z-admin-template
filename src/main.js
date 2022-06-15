@@ -38,6 +38,9 @@ Vue.config.productionTip = false
 import Category from '@/components/Category'
 Vue.component(Category.name, Category)
 
+import HintButton from '@/components/HintButton'
+Vue.component(HintButton.name, HintButton)
+
 import API from './api/index'
 Vue.prototype.$API = API
 
