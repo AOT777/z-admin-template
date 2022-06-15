@@ -34,9 +34,9 @@
             width="width"
           >
             <template slot-scope="{row}">
-              <HintButton title="添加sku" type="success" size="mini" icon="el-icon-plus" @click="scene=2" />
+              <HintButton title="添加sku" type="success" size="mini" icon="el-icon-plus" @click="addSku(row)" />
               <HintButton title="修改spu" type="warning" size="mini" icon="el-icon-edit" @click="updateSpu(row)" />
-              <HintButton title="查看当前spu全部sku列表" type="info" size="mini" icon="el-icon-info" />
+              <HintButton title="查看当前spu全部sku列表" type="info" size="mini" icon="el-icon-info" @click="handleShowSku(row)" />
               <el-popconfirm
                 :title="`确定删除${row.spuName}吗？`"
                 @onConfirm="deleteSpu(row)"
@@ -63,8 +63,43 @@
       <!-- second part添加或修改spu -->
       <SpuForm v-show="scene==1" ref="spu" @changeScene="changeScene" />
       <!-- third part添加sku -->
-      <SkuForm v-show="scene==2" />
+      <SkuForm v-show="scene==2" ref="sku" @changeScene2="changeScene2" />
     </el-card>
+    <!-- 查看当前spu全部sku列表 -->
+    <el-dialog :title="`${spu.spuName}的sku列表`" :visible.sync="dialogTableVisible" :before-close="closeDialog">
+      <el-table
+        v-loading="loading"
+        :data="skuList"
+        style="width: 100%"
+        border
+      >
+        <el-table-column
+          prop="skuName"
+          label="名称"
+          width="width"
+        />
+        <el-table-column
+          prop="price"
+          label="价格"
+          width="width"
+        />
+        <el-table-column
+          prop="weight"
+          label="重量"
+          width="width"
+        />
+        <el-table-column
+          prop="prop"
+          label="图片"
+          width="width"
+        >
+          <template slot-scope="{row}">
+            <img :src="row.skuDefaultImg" alt="" style="width:80px;height:80px">
+          </template>
+        </el-table-column>
+
+      </el-table>
+    </el-dialog>
   </div>
 </template>
 
@@ -84,7 +119,11 @@ export default {
       limit: 3,
       total: 0,
       spuList: [],
-      scene: 0
+      scene: 0,
+      dialogTableVisible: false,
+      spu: {},
+      skuList: [],
+      loading: true
     }
   },
   methods: {
@@ -139,6 +178,28 @@ export default {
         this.$message({ type: 'success', message: '保存成功' })
         this.getSpuList(this.spuList.length > 1 ? this.page : this.page - 1)
       }
+    },
+    addSku(row) {
+      this.scene = 2
+      const { category1Id, category2Id, category3Id } = this
+      this.$refs.sku.getSkuData(row, category1Id, category2Id, category3Id)
+    },
+    changeScene2(scene) {
+      this.scene = scene
+    },
+    async handleShowSku(row) {
+      this.spu = row
+      this.dialogTableVisible = true
+      const result = await this.$API.spu.reqSkuList(row.id)
+      if (result.code === 200) {
+        this.skuList = result.data
+        this.loading = false
+      }
+    },
+    closeDialog(done) {
+      this.loading = true
+      this.skuList = []
+      done()
     }
   }
 }
