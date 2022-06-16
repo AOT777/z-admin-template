@@ -64,22 +64,22 @@ export const constantRoutes = [
       path: 'trademark',
       name: 'TradeMark',
       component: () => import('@/views/product/TradeMark'),
-      meta: { title: '品牌管理', }
+      meta: { title: '品牌管理' }
     }, {
       path: 'attr',
       name: 'Attr',
       component: () => import('@/views/product/Attr'),
-      meta: { title: '品牌属性', }
-    }, {
-      path: 'sku',
-      name: 'Sku',
-      component: () => import('@/views/product/Sku'),
-      meta: { title: 'Sku' }
+      meta: { title: '品牌属性' }
     }, {
       path: 'spu',
       name: 'Spu',
       component: () => import('@/views/product/Spu'),
       meta: { title: 'Spu' }
+    }, {
+      path: 'sku',
+      name: 'Sku',
+      component: () => import('@/views/product/Sku'),
+      meta: { title: 'Sku' }
     }]
   },
 
