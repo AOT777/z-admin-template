@@ -17,7 +17,7 @@
         </el-table-column>
         <el-table-column prop="weight" label="重量(KG)" width="110" />
         <el-table-column prop="price" label="价格(元)" width="110" />
-        <el-table-column prop="prop" label="操作" width="width">
+        <el-table-column prop="prop" label="操作" width="250">
           <template slot-scope="{row}">
             <HintButton v-if="row.isSale==0" title="下架状态" type="success" size="mini" icon="el-icon-bottom" @click="onSale(row)" />
             <HintButton v-else title="上架状态" type="info" size="mini" icon="el-icon-top" @click="cancelSale(row)" />
@@ -65,9 +65,9 @@
         <el-row>
           <el-col :span="5">商品图片</el-col>
           <el-col :span="16">
-            <el-carousel height="400px">
+            <el-carousel height="350px">
               <el-carousel-item v-for="item in skuInfo.skuImageList" :key="item.id">
-                <img style="width:400px;height:400px" :src="item.imgUrl" alt="">
+                <img style="width:350px;height:350px" :src="item.imgUrl" alt="">
               </el-carousel-item>
             </el-carousel>
           </el-col>
@@ -138,7 +138,7 @@ export default {
 
 <style>
   .el-carousel{
-    width: 400px;
+    width: 350px;
   }
   .el-carousel__item h3 {
     color: #475669;
